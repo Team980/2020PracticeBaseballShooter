@@ -16,4 +16,20 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final int 
+        LEFT_DRIVE_SPARK_CHANNEL = 1,
+        RIGHT_DRIVE_SPARK_CHANNEL = 0,
+
+        LEFT_SHOOTER_SPARK_CHANNEL = 2,
+        RIGHT_SHOOTER_SPARK_CHANNEL = 3,
+        XBOX_CONTROLLER_PORT_INDEX = 0,
+
+        SHOOTER_ENCODER_CHANNEL_A = 0,
+        SHOOTER_ENCODER_CHANNEL_B = 1;
+
+    public static final double 
+        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0;
+
+        
 }
