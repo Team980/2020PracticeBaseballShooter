@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
@@ -48,10 +47,6 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-  }
-
-  public double getShooterRate() {
-    return shooter.getActualRate();
   }
 
   public Command getShooterCommand() {

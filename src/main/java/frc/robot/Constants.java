@@ -29,7 +29,7 @@ public final class Constants {
         SHOOTER_ENCODER_CHANNEL_B = 1;
 
     public static final double 
-        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0;
+        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0; // for rpm
 
         
 }

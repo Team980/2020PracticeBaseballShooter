@@ -21,18 +21,18 @@ public class ConstantRateShooter extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
     this.targetRate = targetRate;
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setTargetRate(targetRate);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.run();
+    shooter.run(targetRate);
   }
 
   // Called once the command ends or is interrupted.
