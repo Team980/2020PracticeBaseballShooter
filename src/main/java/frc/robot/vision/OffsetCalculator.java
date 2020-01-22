@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.vision.linear_algebra.Matrix;
-/**
- * Add your docs here.
- */
+import static frc.robot.Constants.*;
 import frc.robot.vision.linear_algebra.Point;
 import frc.robot.vision.linear_algebra.Transform;
 
@@ -25,7 +23,6 @@ public class OffsetCalculator {
         new Point(9.825, 0) // bottom left
     };
     private static final Point INNER_TARGET_CENTER = new Point(19.625, 17);
-    private static final double LIMELIGHT_HORIZONTAL_FOV_PIXELS = 320;
 
     public static double getTargetHorizontalOffset(double[] xs, double[] ys) throws Exception {
         Point[] screenCorners = sortPoints(points(xs, ys));

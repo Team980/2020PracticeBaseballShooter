@@ -15,10 +15,6 @@ import frc.robot.Constants;
 
 
 public class DriveTrain extends SubsystemBase {
-  /**
-   * Creates a new DriveTrain.
-   */
-
   DifferentialDrive drive;
 
   public DriveTrain() {

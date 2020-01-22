@@ -28,8 +28,16 @@ public final class Constants {
         SHOOTER_ENCODER_CHANNEL_A = 0,
         SHOOTER_ENCODER_CHANNEL_B = 1;
 
-    public static final double 
-        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0; // for rpm
+    public static final double SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0; // for rpm
+
+    public static final double POWER_PORT_TARGET_LOWEST_POINT_FEET = 6.8125;
+    public static final double LIMELIGHT_MOUNTING_HEIGHT_FEET = 3.7;
+    public static final double LIMELIGHT_MOUNTING_ELEVATION_RADIANS = Util.degreesToRadians(45); 
+
+    public static final double LIMELIGHT_HORIZONTAL_FOV_PIXELS = 320;
+    public static final double LIMELIGHT_VERTICAL_FOV_PIXELS = 240;
+    public static final double LIMELIGHT_VERTICAL_FOV_RADIANS = Util.degreesToRadians(41);
+    public static final double LIMELIGHT_HORIZONTAL_FOV_RADIANS = Util.degreesToRadians(54);
 
         
 }

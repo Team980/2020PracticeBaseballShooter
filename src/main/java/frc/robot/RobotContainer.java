@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -25,6 +26,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooter = new Shooter();
+
+  private final Limelight limelight = new Limelight();
 
   private final Command constantRateShooterCommand = new ConstantRateShooter(shooter, 400);
 
