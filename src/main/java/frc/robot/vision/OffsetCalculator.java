@@ -32,7 +32,7 @@ public class OffsetCalculator {
         Point screenPoint = Transform.transformPoint(worldToScreenMatrix, INNER_TARGET_CENTER);
 
         // instead of 160 being center screen, we want 0 to be center screen
-        return screenPoint.x - LIMELIGHT_HORIZONTAL_FOV_PIXELS/2;
+        return -screenPoint.x - 24;
     }
 
     private static ArrayList<Point> points(double[] xs, double[] ys) {

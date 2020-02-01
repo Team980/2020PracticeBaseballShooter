@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Brumble;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
@@ -18,6 +19,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.vision.OffsetCalculator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,6 +29,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+  private final XboxController xbox = new XboxController(0);
+
   private final DriveTrain driveTrain = new DriveTrain();
   private final Shooter shooter = new Shooter();
 
@@ -36,7 +41,7 @@ public class RobotContainer {
 
   private final Command teleopDriveCommand = new TeleopDrive(driveTrain);
 
-
+  private final Command brumbleCommand = new Brumble(driveTrain, limelight);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -53,20 +58,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    new JoystickButton(xbox, 1).whenPressed(brumbleCommand);
+    new JoystickButton(xbox, 2).cancelWhenPressed(brumbleCommand);
+
   }
 
-  public void limelightStuff() {
-    double[] xs = limelight.getCornerXs();
-    double[] ys = limelight.getCornerYs();
-    try {
-      double offset = OffsetCalculator.getTargetHorizontalOffset(xs, ys);
-      SmartDashboard.putNumber("offset thingy", offset);
-    } catch (Exception e) {
-      SmartDashboard.putNumber("offset thingy", 0);
-    }
 
-    
-  }
 
   public Command getShooterCommand() {
     return constantRateShooterCommand;
