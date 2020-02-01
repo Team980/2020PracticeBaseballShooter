@@ -9,11 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
+import frc.robot.vision.OffsetCalculator;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -50,6 +53,19 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+  }
+
+  public void limelightStuff() {
+    double[] xs = limelight.getCornerXs();
+    double[] ys = limelight.getCornerYs();
+    try {
+      double offset = OffsetCalculator.getTargetHorizontalOffset(xs, ys);
+      SmartDashboard.putNumber("offset thingy", offset);
+    } catch (Exception e) {
+      SmartDashboard.putNumber("offset thingy", 0);
+    }
+
+    
   }
 
   public Command getShooterCommand() {
