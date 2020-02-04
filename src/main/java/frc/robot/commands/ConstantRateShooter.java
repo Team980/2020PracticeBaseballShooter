@@ -9,36 +9,40 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 
 public class ConstantRateShooter extends CommandBase {
   /**
    * Creates a new ConstantRateShooter.
    */
-  private Shooter shooter;
+  private ShooterPID shooter;
   private double targetRate;
 
-  public ConstantRateShooter(Shooter shooter, double targetRate) {
+  public ConstantRateShooter(ShooterPID shooter, double targetRate) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
     this.targetRate = targetRate;
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setTargetRate(targetRate);
+    shooter.enablePID();
+    //shooter.setTargetRate(targetRate);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.run();
+    shooter.fire(targetRate);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
+    shooter.fire(0);
+    shooter.disablePID();
   }
 
   // Returns true when the command should end.

@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    table.getEntry("shooter speed rpm?").setNumber(robotContainer.getShooterRate());
+    //table.getEntry("shooter speed rpm?").setNumber(robotContainer.getShooterRate());
   }
 
   /**
@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     robotContainer.getTeleopDriveCommand().cancel();
-    robotContainer.getShooterCommand().cancel();
+    //robotContainer.getShooterCommand().cancel();
 
   }
 
@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
 
-    robotContainer.getShooterCommand().schedule();
+    //robotContainer.getShooterCommand().schedule();
     robotContainer.getTeleopDriveCommand().schedule();
   }
 

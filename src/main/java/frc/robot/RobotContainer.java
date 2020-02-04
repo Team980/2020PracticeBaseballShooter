@@ -10,11 +10,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPID;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -24,12 +29,12 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain driveTrain = new DriveTrain();
-  private final Shooter shooter = new Shooter();
+  private final DriveTrain driveTrain;
+  private final ShooterPID shooter;
 
-  private final Command constantRateShooterCommand = new ConstantRateShooter(shooter, 400);
+  private final Command teleopDriveCommand;
 
-  private final Command teleopDriveCommand = new TeleopDrive(driveTrain);
+  private XboxController xBox;
 
 
 
@@ -37,6 +42,21 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    xBox = new XboxController(0);
+
+    driveTrain = new DriveTrain();
+    shooter = new ShooterPID();
+    teleopDriveCommand = new TeleopDrive(driveTrain);
+
+    shooter.setDefaultCommand(new RunCommand(() -> {
+      if (xBox.getTriggerAxis(Hand.kLeft) > 0){
+        shooter.manual(applyDeadband(-xBox.getTriggerAxis(Hand.kLeft), .1));
+      }
+      else{
+        shooter.manual(applyDeadband(xBox.getTriggerAxis(Hand.kRight), .1));
+      }
+    } , shooter));
+    
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -48,18 +68,49 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(xBox, Button.kA.value).whenPressed(new ConstantRateShooter(shooter, 300));
+    new JoystickButton(xBox, Button.kB.value).whenPressed(new RunCommand(() -> {
+      if (xBox.getTriggerAxis(Hand.kLeft) > 0){
+        shooter.manual(applyDeadband(-xBox.getTriggerAxis(Hand.kLeft), .1));
+      }
+      else{
+        shooter.manual(applyDeadband(xBox.getTriggerAxis(Hand.kRight), .1));
+      }
+    } , shooter));
+    
   }
 
-  public double getShooterRate() {
+  /*public double getShooterRate() {
     return shooter.getActualRate();
-  }
+  }*/
 
-  public Command getShooterCommand() {
+/*  public Command getShooterCommand() {
     return constantRateShooterCommand;
-  }
+  }*/
 
   public Command getTeleopDriveCommand() {
     return teleopDriveCommand;
   }
+
+    /**
+   * Returns 0.0 if the given value is within the specified range around zero. The remaining range
+   * between the deadband and 1.0 is scaled from 0.0 to 1.0.
+   *
+   * @param value    value to clip
+   * @param deadband range around zero
+   */
+  public double applyDeadband(double value, double deadband) {
+    if (Math.abs(value) > deadband) {
+      if (value > 0.0) {
+        return (value - deadband) / (1.0 - deadband);
+      } 
+      else {
+        return (value + deadband) / (1.0 - deadband);
+      }
+    } 
+    else {
+      return 0.0;
+    }
+    } 
 
 }
