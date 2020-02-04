@@ -29,13 +29,14 @@ public final class Constants {
         SHOOTER_ENCODER_CHANNEL_B = 1;
 
     public static final double 
-        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 60.0 / 2048.0,
-        ShooterMaxRPM = 100,
+        SHOOTER_ENCODER_DISTANCE_PER_PULSE = 1.0 / 360.0,
+        ShooterMaxRPS = 4000.0 / 60.0,
 
         ShooterP = .1,
         ShooterI = 0,
-        ShooterD = .0005,
-        ShooterF = 1;
-
+        ShooterD = .0005;
+        public static double kSVolts = .05;//volts necessary to barely start the wheel rotating
+        public static double kVVoltSecondsPerRotation = 12.0 / ShooterMaxRPS; //volts to maintain a speed, calc based on 12V to maintain max speed
+      
         
 }

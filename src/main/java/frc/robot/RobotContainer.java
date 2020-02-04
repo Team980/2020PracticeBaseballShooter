@@ -8,15 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ShooterPID;
+//import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,7 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain driveTrain;
-  private final ShooterPID shooter;
+  private final ShooterPIDSubsystem shooter;
 
   private final Command teleopDriveCommand;
 
@@ -45,7 +44,7 @@ public class RobotContainer {
     xBox = new XboxController(0);
 
     driveTrain = new DriveTrain();
-    shooter = new ShooterPID();
+    shooter = new ShooterPIDSubsystem();
     teleopDriveCommand = new TeleopDrive(driveTrain);
 
     shooter.setDefaultCommand(new RunCommand(() -> {
@@ -68,7 +67,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(xBox, Button.kA.value).whenPressed(new ConstantRateShooter(shooter, 300));
+    new JoystickButton(xBox, Button.kA.value).whenPressed(new ConstantRateShooter(shooter));
     new JoystickButton(xBox, Button.kB.value).whenPressed(new RunCommand(() -> {
       if (xBox.getTriggerAxis(Hand.kLeft) > 0){
         shooter.manual(applyDeadband(-xBox.getTriggerAxis(Hand.kLeft), .1));
@@ -79,14 +78,6 @@ public class RobotContainer {
     } , shooter));
     
   }
-
-  /*public double getShooterRate() {
-    return shooter.getActualRate();
-  }*/
-
-/*  public Command getShooterCommand() {
-    return constantRateShooterCommand;
-  }*/
 
   public Command getTeleopDriveCommand() {
     return teleopDriveCommand;
