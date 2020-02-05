@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -81,6 +82,10 @@ public class RobotContainer {
 
   public Command getTeleopDriveCommand() {
     return teleopDriveCommand;
+  }
+
+  public Encoder getShooterEncoder(){
+    return shooter.getEncoder();
   }
 
     /**

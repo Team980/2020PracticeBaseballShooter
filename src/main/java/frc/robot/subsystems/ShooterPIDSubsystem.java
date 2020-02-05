@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
@@ -60,11 +59,7 @@ public class ShooterPIDSubsystem extends PIDSubsystem {
     setSetpoint(targetRPS);
   }
 
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("RPM", shootEncoder.getRate() * 60);
-    SmartDashboard.putNumber("Rotations", shootEncoder.getDistance());
-    // This method will be called once per scheduler run
+  public Encoder getEncoder(){
+    return shootEncoder;
   }
-
 }

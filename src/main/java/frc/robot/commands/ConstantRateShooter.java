@@ -34,7 +34,7 @@ public class ConstantRateShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.fire(targetRate / 60);//convert to RPS
+    shooter.fire(targetRate / 60.0);//convert to RPS
   }
 
   // Called once the command ends or is interrupted.
