@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ConstantRateShooter;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Lidar;
 //import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPIDSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,6 +32,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain driveTrain;
   private final ShooterPIDSubsystem shooter;
+  private final Lidar lidar;
 
   private final Command teleopDriveCommand;
 
@@ -47,6 +49,7 @@ public class RobotContainer {
     driveTrain = new DriveTrain();
     shooter = new ShooterPIDSubsystem();
     teleopDriveCommand = new TeleopDrive(driveTrain);
+    lidar = new Lidar();
 
     shooter.setDefaultCommand(new RunCommand(() -> {
       if (xBox.getTriggerAxis(Hand.kLeft) > 0){

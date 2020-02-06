@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Lidar;
 
 /**
@@ -30,6 +31,7 @@ public class LidarListener implements Runnable{
     public void run(){
         while (true){
             try{            
+                SmartDashboard.putNumber("frame length", port.getBytesReceived());
                 frameStart = port.read(2);
                 if (frameStart[0] == 89 && frameStart[1] == 89){
                     data = port.read(7);

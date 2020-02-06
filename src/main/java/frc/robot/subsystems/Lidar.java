@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,8 +57,15 @@ public class Lidar extends SubsystemBase {
 
   @Override
   public void periodic() {
-    distance = data[1] * 256 + data[0];
-    strength = data[3] * 256 + data[2];
+    distance = ByteBuffer.wrap(data, 0, 2)
+      .order(ByteOrder.LITTLE_ENDIAN)
+      .getShort();
+
+    strength = ByteBuffer.wrap(data, 2, 2)
+      .order(ByteOrder.LITTLE_ENDIAN)
+      .getShort();
+      
+    //strength = data[3] * 256 + data[2];
     SmartDashboard.putNumber("Distance", distance * .393701);
     SmartDashboard.putNumber("Signal Strength", strength);
 ;    // This method will be called once per scheduler run
