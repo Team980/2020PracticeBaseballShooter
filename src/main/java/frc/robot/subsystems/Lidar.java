@@ -4,6 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+/*Thank you to FRC team 5687 on whose code this was based*/
 
 package frc.robot.subsystems;
 
@@ -41,9 +42,9 @@ public class Lidar extends SubsystemBase {
     }
     catch (Exception e){
       lidarInitialized = false;
-      DriverStation.reportError("LidarProxy could not intialize properly. " + e.getStackTrace().toString(), false);
+      DriverStation.reportError("Lidar could not intialize properly. " + e.getStackTrace().toString(), false);
     }
-    SmartDashboard.putBoolean("Lidar/initializedProperly", lidarInitialized);
+    SmartDashboard.putBoolean("Lidar Initialized", lidarInitialized);
 
   }
 
