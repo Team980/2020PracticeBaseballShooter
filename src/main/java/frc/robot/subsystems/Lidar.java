@@ -47,6 +47,14 @@ public class Lidar extends SubsystemBase {
 
   }
 
+  public boolean isValid() {
+    return distance >= 0;
+  }
+
+  public double getDistanceFeet() {
+    return distance * 0.0328084;
+  }
+
   public int getDistance(){
     return distance;
   }

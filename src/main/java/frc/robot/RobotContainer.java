@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ConstantRateShooter;
+import frc.robot.commands.GoToDistance;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lidar;
@@ -38,7 +39,7 @@ public class RobotContainer {
 
   private XboxController xBox;
 
-
+  private final Command setDistanceTo;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -50,6 +51,8 @@ public class RobotContainer {
     shooter = new ShooterPIDSubsystem();
     teleopDriveCommand = new TeleopDrive(driveTrain);
     lidar = new Lidar();
+
+    setDistanceTo = new GoToDistance(lidar, driveTrain, 3);
 
     shooter.setDefaultCommand(new RunCommand(() -> {
       if (xBox.getTriggerAxis(Hand.kLeft) > 0){
@@ -81,6 +84,7 @@ public class RobotContainer {
       }
     } , shooter));
     
+    new JoystickButton(xBox, Button.kY.value).whenPressed(setDistanceTo);
   }
 
   public Command getTeleopDriveCommand() {
